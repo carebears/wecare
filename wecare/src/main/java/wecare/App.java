@@ -1,4 +1,4 @@
-package wecare.wecare;
+package wecare;
 
 /**
  * Hello world!
