@@ -16,7 +16,10 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 /**
  * 
@@ -130,8 +133,11 @@ public class Utils {
 		}
 	}
 
-	// Alert handles
-
+	/**
+	 * 
+	 * @param Alert method start from here
+	 * 
+	 */
 	public void alertAccept() {
 		Alert al = driver.switchTo().alert();
 		al.accept();
@@ -152,7 +158,7 @@ public class Utils {
 		al.sendKeys(text);
 	}
 
-	// for creating excel connection
+	// For Screenshot 
 
 	public void take_screenShot(String Filename){
 	  try {
@@ -161,4 +167,36 @@ public class Utils {
 	     } catch (IOException e1) {
 	         e1.printStackTrace();
 	     }
+	  
+	  /**
+	   * 
+	   * @param wait method start from here
+	   * 
+	   */
+	  public void waitforClick(By locator){
+		  WebDriverWait wait =new WebDriverWait(driver, 60);
+		  wait.until(ExpectedConditions.elementToBeClickable(locator))
+	  }
+	  
+	  public void waitforElementSelected(By locator){
+		  WebDriverWait wait =new WebDriverWait(driver, 60);
+		  wait.until(ExpectedConditions.elementToBeSelected(locator));
+	  }
+	  
+	  public void waitforAlert(By locator){
+		  WebDriverWait wait =new WebDriverWait(driver, 60);
+		  wait.until(ExpectedConditions.alertIsPresent());
+	  }
+	  
+	  public void waitforVisible(By locator){
+		  WebDriverWait wait =new WebDriverWait(driver, 60);
+		  wait.until(ExpectedConditions.presenceOfElementLocated(locator));
+	  }
+	  
+	  public void waitforVisible(By locator){
+		  WebDriverWait wait =new WebDriverWait(driver, 60);
+		  wait.until(ExpectedConditions.presenceOfElementLocated(locator));
+	  }
+	  
+	 
 	}
