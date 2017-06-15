@@ -198,5 +198,48 @@ public class Utils {
 		  wait.until(ExpectedConditions.presenceOfElementLocated(locator));
 	  }
 	  
+	  // read the properties from properties file
+	  
+	  
+	  public String readproperty(String Filename, String property){
+		  Properties prop = new Properties();
+		  InputStream input = null;
+		  try {
+
+				input = new FileInputStream(Filename+".properties");
+
+				// load a properties file
+				prop.load(input);
+
+				// get the property value and print it out
+			return	prop.getProperty(property);
+				
+
+			} catch (IOException ex) {
+				ex.printStackTrace();
+			} 
+
+	  }
+	  
+	  public String readproperty( String property){
+		  Properties prop = new Properties();
+		  InputStream input = null;
+		  try {
+
+				input = new FileInputStream("application.properties");
+
+				// load a properties file
+				prop.load(input);
+
+				// get the property value and print it out
+				return prop.getProperty(property);
+				
+
+			} catch (IOException ex) {
+				ex.printStackTrace();
+			} 
+
+	  }
+	  
 	 
 	}
