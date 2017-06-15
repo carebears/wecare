@@ -1,25 +1,30 @@
-package wecare;
+package wecare.utils;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Properties;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.poi.sl.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
 
 /**
  * 
@@ -158,88 +163,77 @@ public class Utils {
 		al.sendKeys(text);
 	}
 
-	// For Screenshot 
+	// For Screenshot
 
-	public void take_screenShot(String Filename){
-	  try {
-	         File scrFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);	         
-	         FileUtils.copyFile(scrFile, new File(System.getProperty("user.dir")+"screenshot"+Filename+".png"));
-	     } catch (IOException e1) {
-	         e1.printStackTrace();
-	     }
-	  
-	  /**
-	   * 
-	   * @param wait method start from here
-	   * 
-	   */
-	  public void waitforClick(By locator){
-		  WebDriverWait wait =new WebDriverWait(driver, 60);
-		  wait.until(ExpectedConditions.elementToBeClickable(locator))
-	  }
-	  
-	  public void waitforElementSelected(By locator){
-		  WebDriverWait wait =new WebDriverWait(driver, 60);
-		  wait.until(ExpectedConditions.elementToBeSelected(locator));
-	  }
-	  
-	  public void waitforAlert(By locator){
-		  WebDriverWait wait =new WebDriverWait(driver, 60);
-		  wait.until(ExpectedConditions.alertIsPresent());
-	  }
-	  
-	  public void waitforVisible(By locator){
-		  WebDriverWait wait =new WebDriverWait(driver, 60);
-		  wait.until(ExpectedConditions.presenceOfElementLocated(locator));
-	  }
-	  
-	  public void waitforVisible(By locator){
-		  WebDriverWait wait =new WebDriverWait(driver, 60);
-		  wait.until(ExpectedConditions.presenceOfElementLocated(locator));
-	  }
-	  
-	  // read the properties from properties file
-	  
-	  
-	  public String readproperty(String Filename, String property){
-		  Properties prop = new Properties();
-		  InputStream input = null;
-		  try {
-
-				input = new FileInputStream(Filename+".properties");
-
-				// load a properties file
-				prop.load(input);
-
-				// get the property value and print it out
-			return	prop.getProperty(property);
-				
-
-			} catch (IOException ex) {
-				ex.printStackTrace();
-			} 
-
-	  }
-	  
-	  public String readproperty( String property){
-		  Properties prop = new Properties();
-		  InputStream input = null;
-		  try {
-
-				input = new FileInputStream("application.properties");
-
-				// load a properties file
-				prop.load(input);
-
-				// get the property value and print it out
-				return prop.getProperty(property);
-				
-
-			} catch (IOException ex) {
-				ex.printStackTrace();
-			} 
-
-	  }
-	  
-	 
+	public void take_screenShot(String Filename) {
+		try {
+			File scrFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
+			FileUtils.copyFile(scrFile, new File(System.getProperty("user.dir") + "screenshot" + Filename + ".png"));
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
 	}
+
+	/**
+	 * 
+	 * @param wait
+	 *            method start from here
+	 * @throws Exception 
+	 * 
+	 */
+	 public void waitforClick(By locator){
+	
+      WebElement ele = driver.findElement(locator);
+	  WebDriverWait wait =new WebDriverWait(driver, 60);
+	 
+	  wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
+	  
+	  }
+	  
+	   public void waitforElementSelected(By locator){ WebDriverWait wait =new
+	  WebDriverWait(driver, 60);
+	  wait.until(ExpectedConditions.elementToBeSelected(locator)); }
+	  
+	  public void waitforAlert(By locator){ WebDriverWait wait =new
+	  WebDriverWait(driver, 60);
+	  wait.until(ExpectedConditions.alertIsPresent()); }
+	  
+	  public void waitforVisible(By locator){ WebDriverWait wait =new
+	  WebDriverWait(driver, 60);
+	  wait.until(ExpectedConditions.presenceOfElementLocated(locator)); }
+	 
+	 
+	// Read the value from properties file
+
+	public String readproperty(String Filename, String property) throws Exception {
+		Properties prop = new Properties();
+		InputStream input = null;
+		
+
+			input = new FileInputStream(System.getProperty("user.dir") + "//resource//" + Filename + ".properties");
+
+			// load a properties file
+			prop.load(input);
+
+			// get the property value and print it out
+		return	prop.getProperty(property);
+
+		
+
+	}
+
+	public String readproperty(String property) throws Exception {
+		Properties prop = new Properties();
+		InputStream input = null;
+
+		input = new FileInputStream(System.getProperty("user.dir") + "//resource//" + "application.properties");
+
+		// load a properties file
+		prop.load(input);
+
+		// get the property value and print it out
+		return prop.getProperty(property);
+		 
+
+	}
+}
